@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day One</title>
+</head>
+<body>
+    <!-- Style -->
+    <style>
+        .app-title {
+            text-align: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-transform: uppercase;
+            background: linear-gradient(to right, #05609b , #01e196);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 500;
+        }
+    </style>
+
+<div id="App">
+
+</div>
+
+<script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+<!-- Script -->
+<script>
+    // Render HTML by React
+const title = 
+   React.createElement('div', {className: 'app- heading'},
+   React.createElement('h1', {className: 'app-title'}, 'Căn bản - chau chuốt - tỉ mỉ - kiên trì - kỷ luật - chậm mà chắc')
+   )
+
+ReactDOM.render(
+    title,
+    document.getElementById('App')
+)
+
+</script>
+
+</body>
+</html>
