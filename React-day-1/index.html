@@ -1,45 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Day One</title>
-</head>
-<body>
+  </head>
+  <body>
     <!-- Style -->
     <style>
-        .app-title {
-            text-align: center;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            text-transform: uppercase;
-            background: linear-gradient(to right, #05609b , #01e196);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 500;
-        }
+      *,
+      ::before,
+      ::after {
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        background: darkgray;
+      }
+
+      .random-game {
+        background: burlywood;
+        padding: 20px;
+        font-family: "Courier New", Courier, monospace;
+      }
+
+      .random-game-header {
+        text-align: center;
+      }
+
+      .random-game-btn {
+        border: none;
+        outline: none;
+        padding: 5px 10px;
+        cursor: pointer;
+      }
+
+      .random-game-body p {
+        font-weight: 700;
+      }
+
+      .random-game-group {
+        display: flex;
+        margin-top: 20px;
+      }
+
+      .random-game-group input {
+        border: none;
+        padding: 0 10px;
+      }
+
+      .btn-default {
+        margin: 20px 0px;
+      }
+
+      .success-btn {
+        background: rgb(8, 139, 89);
+        color: #fff;
+      }
     </style>
 
-<div id="App">
+    <div id="App"></div>
 
-</div>
+    <script
+      src="https://unpkg.com/react@17/umd/react.development.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"
+      integrity="sha512-kp7YHLxuJDJcOzStgd6vtpxr4ZU9kjn77e6dBsivSz+pUuAuMlE2UTdKB7jjsWT84qbS8kdCWHPETnP/ctrFsA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <!-- Script -->
+    <script type="text/babel">
+          // Render HTML by React
 
-<script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
-<script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
-<!-- Script -->
-<script>
-    // Render HTML by React
-const title = 
-   React.createElement('div', {className: 'app- heading'},
-   React.createElement('h1', {className: 'app-title'}, 'Căn bản - chau chuốt - tỉ mỉ - kiên trì - kỷ luật - chậm mà chắc')
-   )
+       class App extends React.Component {
+           constructor() {
+               super()
+               this.state = {
+                   countNumber: 0
+               }
+           }
 
-ReactDOM.render(
-    title,
-    document.getElementById('App')
-)
+            guessing = () => {
+                this.setState ({
+                    countNumber: this.state.countNumber + 1
+                })
+           }
 
-</script>
-
-</body>
+           render() {
+               return(
+                <div className="random-game">
+                    <div className="random-game-header">
+                        <h2 className="random-game-title">Getting random number</h2>
+                        <p>Tôi đã chọn 1 số random trong khoảng 1 đến 100, bạn có thể đoán được?</p>
+                    </div>
+                    <div className="random-game-body">
+                        <button className="random-game-btn btn-default">New Game</button>
+                        <p>Số lần bạn đoán là: {this.state.countNumber}</p>
+                        <p>Số bạn đoán là</p>
+                        <div className="random-game-group">
+                            <input type="number"/>
+                            <button className="random-game-btn success-btn" onClick={this.guessing}>Đoán</button>
+                        </div>
+                        <p>notify</p>
+                    </div>
+                </div>
+               )
+           }
+       }
+      ReactDOM.render(<App/>,document.getElementById('App'))
+    </script>
+  </body>
 </html>
