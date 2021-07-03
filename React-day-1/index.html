@@ -5,64 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Day One</title>
+    <link rel="stylesheet" href="style.css">
   </head>
   <body>
-    <!-- Style -->
-    <style>
-      *,
-      ::before,
-      ::after {
-        margin: 0;
-        padding: 0;
-      }
-
-      body {
-        background: darkgray;
-      }
-
-      .random-game {
-        background: burlywood;
-        padding: 20px;
-        font-family: "Courier New", Courier, monospace;
-      }
-
-      .random-game-header {
-        text-align: center;
-      }
-
-      .random-game-btn {
-        border: none;
-        outline: none;
-        padding: 5px 10px;
-        cursor: pointer;
-      }
-
-      .random-game-body p {
-        font-weight: 700;
-      }
-
-      .random-game-group {
-        display: flex;
-        margin-top: 20px;
-      }
-
-      .random-game-group input {
-        border: none;
-        padding: 0 10px;
-      }
-
-      .btn-default {
-        margin: 20px 0px;
-      }
-
-      .success-btn {
-        background: rgb(8, 139, 89);
-        color: #fff;
-      }
-    </style>
-
     <div id="App"></div>
-
     <script
       src="https://unpkg.com/react@17/umd/react.development.js"
       crossorigin
@@ -79,42 +25,74 @@
     ></script>
     <!-- Script -->
     <script type="text/babel">
-          // Render HTML by React
+      class App extends React.Component {
+          constructor() {
+              super()
+              this.state = {
+                  countNumber: 0,
+                  randomNumber: this.random(),
+                  currentNumber: 0,
+                  message: ''
+              }
+          }
 
-       class App extends React.Component {
-           constructor() {
-               super()
-               this.state = {
-                   countNumber: 0
-               }
-           }
+          // click dem so lan doan va check dieu kien de show message
+          guessing = () => {
+              let {currentNumber, randomNumber,countNumber} = this.state
+              let message = ''
+              if(currentNumber > randomNumber) {
+                message = "Số bạn đoán đang lớn hơn!"
+              } else if(currentNumber <  randomNumber) {
+                message = "Số bạn đoán đang nhỏ hơn!"
+              }else {
+                message = "Bạn đã đoán đúng"
+              }
+              this.setState ({
+                countNumber: countNumber + 1,
+                message: message
+              })
+          }
+          //get random number
+          random = () => {
+            return Math.round(Math.random() * 100) + 1
+          }
+          // lay input value khi onchange va set lai state cho current number
+          onValueChange = (event) => {
+            this.setState({
+              currentNumber: Number(event.target.value)
+            })
+          }
 
-            guessing = () => {
-                this.setState ({
-                    countNumber: this.state.countNumber + 1
-                })
-           }
-
-           render() {
-               return(
+          //reset game
+          newGame = () => {
+            this.setState({
+              countNumber: 0,
+              randomNumber: this.random(),
+              currentNumber: '',
+              message: ''
+            })
+          }
+          render() {
+              let {countNumber, message, currentNumber} = this.state
+              return(
                 <div className="random-game">
                     <div className="random-game-header">
                         <h2 className="random-game-title">Getting random number</h2>
                         <p>Tôi đã chọn 1 số random trong khoảng 1 đến 100, bạn có thể đoán được?</p>
                     </div>
                     <div className="random-game-body">
-                        <button className="random-game-btn btn-default">New Game</button>
-                        <p>Số lần bạn đoán là: {this.state.countNumber}</p>
+                        <button className="random-game-btn btn-default" onClick={this.newGame}>New Game</button>
+                        <p>Số lần bạn đoán là: {countNumber}</p>
                         <p>Số bạn đoán là</p>
                         <div className="random-game-group">
-                            <input type="number"/>
+                            <input type="number" onChange={this.onValueChange} value ={currentNumber}/>
                             <button className="random-game-btn success-btn" onClick={this.guessing}>Đoán</button>
                         </div>
-                        <p>notify</p>
+                        <p>{message}</p>
                     </div>
                 </div>
-               )
-           }
+            )
+          }
        }
       ReactDOM.render(<App/>,document.getElementById('App'))
     </script>
